@@ -1,0 +1,18 @@
+#!/sbin/openrc-run
+
+command="/usr/local/front-ui/front-ui"
+command_background=true
+pidfile="/run/front-ui.pid"
+description="front-ui Service"
+procname="front-ui"
+depend() {
+    need net
+}
+start_pre(){
+    cd /usr/local/front-ui
+}
+reload() {
+  ebegin "Reloading ${RC_SVCNAME}"
+  kill -USR1  $pidfile
+  eend $?
+}

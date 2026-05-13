@@ -1,0 +1,17 @@
+[Unit]
+Description=front-ui Service
+After=network.target
+Wants=network.target
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/front-ui
+Environment="XRAY_VMESS_AEAD_FORCED=false"
+Type=simple
+WorkingDirectory=/usr/local/front-ui/
+ExecStart=/usr/local/front-ui/front-ui
+ExecReload=kill -USR1 $MAINPID
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
